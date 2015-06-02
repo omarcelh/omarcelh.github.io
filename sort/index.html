@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Tugas 2 CaIRK 2013</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+<div>	
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#">Home</a></li>
+  <li class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Sorting Algorithm
+    <span class="caret"></span></a>
+    <ul class="dropdown-menu">
+      <li><a href="#selection">Selection Sort</a></li>
+      <li><a href="#insertion">Insertion Sort</a></li>
+      <li><a href="#shell">Shell Sort</a></li> 
+      <li><a href="#count">Count Sort</a></li>
+      <li><a href="#radix">Radix Sort</a></li>
+      <li><a href="#bubble">Bubble Sort</a></li> 
+    </ul>
+  </li>
+  <li><a href="#References">References</a></li>
+  <li><a href="#About">About</a></li>
+</ul>
+</div>
+
+<div class="container">
+  <div class="jumbotron">
+    <center><h1>Analisis Kompleksitas dari Berbagai Algoritma Pengurutan Data</h1>
+    <p>Octavianus Marcel Harjono / 13513056</p> </center>
+  </div>
+  
+  
+  <div class="row" style="background-color: #8C8CC9;">
+    <div class="col-lg-6" id="selection">
+      <h3>Selection Sort</h3>
+      <p>Kompleksitas waktu: O(n^2)<br>
+      Kompleksitas ruang: O(1)</p>
+      
+<code>
+<p><strong>KAMUS</strong></p>
+<p>i,j: integer</p>
+<p>iMin: integer</p>
+<p>&nbsp;</p>
+<p><strong>ALGORITMA</strong></p>
+<p>j traversal [1..n-1]</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; iMin <- j</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i traversal [j+1..n]</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(a[i] &lt; a[iMin]) then</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; iMin <- I</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {i &gt; n}</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(iMin &ne; j) then</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; swap(a[j], a[iMin])</p>
+<p>{j &gt; n-1}</p></code>
+		
+      <p>Jika kompleksitas waktu dihitung dari perbandingan a[i] dengan a[iMin] saja, 
+      maka karena perbandingan ini yang dilakukan sebanyak (n-1)*(n-1) kali, 
+      yaitu n^2 - 2n + 1, ini menyebabkan algoritma ini memiliki kompleksitas waktu O(n^2 - 2n + 1) 
+      atau bisa disederhanakan menjadi O(n^2).</p>
+    </div>
+    <div class="col-lg-6" id="insertion">
+      <h3>Insertion Sort</h3>
+      <p>Kompleksitas waktu: O(n^2)<br>
+      Kompleksitas ruang: O(1)</p>
+      
+<code><p><strong>KAMUS</strong></p>
+<p>i,j: integer</p>
+<p>&nbsp;</p>
+<p><strong>ALGORITMA</strong></p>
+<p>i traversal [2..n]</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; j <- i</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while ((j &gt; 1) and (a[j-1] &gt; a[j]))</p>
+<p>swap(a[j], a[j-1])</p>
+<p>j <- j-1</p>
+<p>{j &lt;= 1 or a[j-1] &lt;= a[j]}</p>
+<p>{i &gt; n}</p></code>
+      
+      <p>Jika kompleksitas waktu dihitung berdasarkan pertukaran nilai antara a[j] dengan a[j-1], 
+      maka karena pertukaran ini dilakukan sebanyak: loop luar (traversal) dilakukan sebanyak n-1 kali, 
+      dan loop dalam (while) dilakukan sebanyak j-1 kali. (kasus terburuk). 
+      Maka pemanggilan prosedur swap akan sesuai barisan 1,2,3,…,n-2,n-1. 
+      Penjumlahan seluruhnya adalah n/2(2+(n-1)) atau (n^2+n)/2. 
+      Sehingga kompleksitas waktunya dapat disederhanakan menjadi O(n^2).
+</p>
+    </div>
+  </div>
+  
+  <br><br><br><br><br>
+  
+  <div class="row" style="background-color: #8C8CC9;">
+    <div class="col-lg-6" id="shell">
+      <h3>Shell Sort</h3>
+      <p>Kompleksitas waktu: O(n^2)<br>
+      Kompleksitas ruang: O(1)</p>
+      
+<code><p><strong>KAMUS</strong></p>
+<p>increment: integer</p>
+<p>&nbsp;</p>
+<p><strong>ALGORITMA</strong></p>
+<p>increment <- n/2</p>
+<p>while (increment&gt;0) do</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i traversal [increment..n]</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; j <- i</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; temp <- a[i]</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while ((j&gt;=increment) and (a[j-increment]&gt;temp) do</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a[j] <- a[j-increment]</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; j <- j-increment</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {j&lt;increment or a[j-increment]&lt;=temp}</p>
+<p>a[j] <- temp</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {i &gt; n}</p>
+<p>if(increment == 2) then</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; increment <- 1</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; increment <- increment * (5/11)</p>
+<p>{increment&lt;=0}</p></code>      
+
+      <p>Kompleksitas waktu ini tidak dapat secara pasti ditentukan 
+      karena bergantung berdasarkan pada gap-nya (urutan increment). 
+      Increment yang membuat algoritma ini semakin efisien tidak diketahui. 
+      Ada yang menghasilkan kompleksitas waktu O(n^2 ),O(n^(3⁄2) ),O(n^(4⁄3) ),
+      O(n log^2⁡n). Tetapi worst-casenya sendiri adalah O(n^2).</p>
+    </div>
+    <div class="col-lg-6" id="count">
+      <h3>Count Sort</h3>
+      <p>Dengan asumsi bahwa bilangan berada di range [1..k], maka:<br>
+      Kompleksitas waktu: O(n+k)<br>
+      Kompleksitas ruang: O(n+k)
+</p>
+<code><p><strong>KAMUS</strong></p>
+<p>count: array [1..k] of integer [0..n]</p>
+<p>i,j: integer</p>
+<p>&nbsp;</p>
+<p><strong>ALGORITMA</strong></p>
+<p>i traversal [1..k]</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; count[i] &lt;- 0</p>
+<p>i traversal [1..n]</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; count[a[i]] &lt;- count[a[i]] + 1</p>
+<p>j &lt;- 0</p>
+<p>i traversal [1..k]</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(count[i] &ne; 0) then</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; repeat count[i] times</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a[j] &lt;- i</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; j &lt;- j + 1</p></code>
+	<p>Jika kompleksitas waktu dihitung berdasarkan assignment nilai, maka: 
+	untuk loop pertama dilakukan sebanyak k kali. Untuk loop kedua dilakukan sebanyak n kali. 
+	Untuk loop ketiga seluruh assignment dilakukan sebanyak 2n kali (2 * jumlah semua count[i]). 
+	Sehingga seluruh assignment dilakukan 3n + k kali, sehingga notasi Big-O 
+	untuk kompleksitas waktunya adalah O(n+k).</p>
+    </div>
+  </div>
+  <br><br><br><br><br>
+  
+  <div class="row" style="background-color: #8C8CC9;">
+    <div class="col-lg-6" id="radix">
+      <h3>Radix Sort</h3>
+      <p>Misal d adalah jumlah digit terbanyak dalam satu bilangan (1000 ada 4 digit, maka d = 4)<br>
+      Kompleksitas waktu: O((n+b)*log⁡b (k)).<br>
+      Kompleksitas ruang:O(d+n)</p>
+      
+<code><p><strong>KAMUS</strong></p>
+<p>m, exp: integer</p>
+<p>function getMax(a: array of integer, n: integer)</p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KAMUS LOKAL</strong></p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </strong>mx,i: integer</p>
+<p>&nbsp;</p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ALGORITMA</strong></p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </strong>mx = a[1]</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i traversal [2..n]</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(a[i] &gt; mx) then</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mx = a[i]</p>
+<p>&agrave; mx</p>
+<p><strong>ALGORITMA</strong></p>
+<p>m = getMax(a, n)</p>
+<p>exp <- 1</p>
+<p>while (m/exp &gt; 0) do</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; countSort(a,n,exp)</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; exp <- exp * 10</p>
+<p>{m/exp &lt;= 0}</p></code>
+<p>Radix sort memiliki kompleksitas waktu O(d*(n+b)), dimana b adalah basis bilangan 
+(b = 10 jika bilangan desimal). d adalah digit, atau dengan kata lain d = O(log⁡b (k)). 
+Maka secara keseluruhan, kompleksitas waktunya adalah O((n+b)*log⁡b (k)).</p>
+    </div>
+    
+    <div class="col-lg-6" id="bubble">
+      <h3>Bubble Sort</h3>
+      <p>Kompleksitas waktu: O(n^2)<br>
+      Kompleksitas ruang: O(1)</p>
+<code><p><strong>KAMUS</strong></p>
+<p>i,j: integer</p>
+<p>swapped: boolean</p>
+<p>&nbsp;</p>
+<p><strong>ALGORITMA</strong></p>
+<p>i traversal [1..n]</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; swapped <- false</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; j traversal [n..i+1]</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(a[j] &lt; a[j-1]) then</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; swap (a[j], a[j-1])</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; swapped = true</p>
+<p>{j &lt; i+1}</p>
+<p>if (swapped) then</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break</p>
+<p>{i &gt; n}</p></code>
+    <p>Jika kompleksitas waktu dihitung berdasarkan perbandingan a[j] dengan a[j-1], 
+    maka loop luar (traversal i) dilakukan sebanyak n kali dan loop dalam (traversal j) 
+    dilakukan sebanyak n-i-1, maka ini akan membuat barisan perbandingan sebanyak 
+    n-1, n-2, n-3, …, 3, 2, 1 kali. Maka total keseluruhannya adalah (n-1)/2 (2+n-1) 
+    yang bisa disederhanakan menjadi ((n-1)(n+1))/2 atau ((n^2-1))⁄2, 
+    maka Big-O nya adalah O(n^2).</p></div>
+  </div>
+</div>
+
+<br><br>
+<div class="container-fluid" id="References">
+<center><h2>References</h2>
+<p><a href="http://www.geeksforgeeks.org/radix-sort/">http://www.geeksforgeeks.org/radix-sort/</a></p>
+<p><a href="http://www.cse.iitk.ac.in/users/dsrkg/cs210/applets/sortingII">http://www.cse.iitk.ac.in/users/dsrkg/cs210/applets/sortingII</a></p>
+<p><a href="http://sorting-algorithms.com/">http://sorting-algorithms.com/</a></p></center>
+</div>
+
+<br><br>
+<div class="container-fluid" id="About">
+<center><h2>About</h2>
+<p><h4>Octavianus Marcel Harjono</h4></p>
+<p><h4>13513056</h4></p>
+<p><h4>Teknik Informatika 2013</h4></p>
+<p><h4>Institut Teknkologi Bandung</h4></p>
+</center>
+</div>
+
+
+</body>
+
+<style type="text/css">
+code {
+	font-family: "Courier New";
+	color: crimson;
+	font-weight: bold;
+}
+
+body, div, h1, h2, h3, h4, h5, h6, h7 {
+	color : rgb(0,0,0);
+	font-family : "Microsoft Sans Serif";
+	font-size : 17;
+}
+
+body {
+	background : #EDEDED;
+}
+
+h2,h3 {
+	font-weight: bold;
+	text-align: center;
+}
+
+
+
+</style>
+</html>
